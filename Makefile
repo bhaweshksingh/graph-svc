@@ -25,12 +25,6 @@ app:
 http-local-serve: build
 	$(APP_EXECUTABLE) -configFile=$(CONFIG_FILE) $(HTTP_SERVE_COMMAND)
 
-grpc-serve: build
-	$(APP_EXECUTABLE) -configFile=$(configFile) $(GRPC_SERVE_COMMAND)
-
-grpc-local-serve: build
-	$(APP_EXECUTABLE) -configFile=$(CONFIG_FILE) $(GRPC_SERVE_COMMAND)
-
 copy-config:
 	cp .env.sample .env
 
