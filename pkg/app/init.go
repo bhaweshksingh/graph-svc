@@ -29,9 +29,9 @@ func initRouter(cfg config.Config, logger *zap.Logger) http.Handler {
 }
 
 func initService(graphRepository repository.GraphRepository) graphinfo.Service {
-	eventService := graphinfo.NewGraphService(graphRepository)
+	graphService := graphinfo.NewGraphService(graphRepository)
 
-	return eventService
+	return graphService
 }
 
 func initRepository(cfg config.Config) repository.GraphRepository {

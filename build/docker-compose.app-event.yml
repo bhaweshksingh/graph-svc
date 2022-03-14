@@ -17,4 +17,4 @@ services:
       collect_logs_using_filebeat: "true"
       convert_logs_to_json_object: "true"
     networks:
-      - eventnetwork
+      - graphsvcnetwork

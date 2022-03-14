@@ -11,14 +11,14 @@ import (
 	"go.uber.org/zap"
 )
 
-func NewRouter(lgr *zap.Logger, eventsService graphinfo.Service) http.Handler {
+func NewRouter(lgr *zap.Logger, graphService graphinfo.Service) http.Handler {
 	router := mux.NewRouter()
 	router.Use(handlers.RecoveryHandler())
 
-	eventsHandler := handler.NewGraphHandler(lgr, eventsService)
+	graphHandler := handler.NewGraphHandler(lgr, graphService)
 
 	router.
-		HandleFunc("/chart-data", withMiddlewares(lgr, middleware.WithErrorHandler(lgr, eventsHandler.GetChartData))).
+		HandleFunc("/chart-data", withMiddlewares(lgr, middleware.WithErrorHandler(lgr, graphHandler.GetChartData))).
 		Methods(http.MethodGet)
 
 	return router
