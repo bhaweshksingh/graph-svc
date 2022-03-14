@@ -43,24 +43,24 @@ func (d *ChartData) CalculateTrendline(dataPoints []model.DataPoint) {
 		trendlinePoints[i] = TrendlinePoint{DayNum: dayNum, Count: dataPoints[i].VisitCount}
 	}
 
-	sumX := 0.0
-	sumY := 0.0
-	sumXSquared := 0.0
-	sumYSquared := 0.0
-	sumXY := 0.0
+	sumDaysSinceStart := 0.0
+	sumVisits := 0.0
+	sumDaysSinceStartSquared := 0.0
+	sumVisitsSquared := 0.0
+	sumVisitsIntoDaysSinceStart := 0.0
 
 	for _, point := range trendlinePoints {
-		sumX += float64(point.DayNum)
-		sumY += float64(point.Count)
-		sumXSquared += math.Pow(float64(point.DayNum), 2)
-		sumYSquared += math.Pow(float64(point.Count), 2)
+		sumDaysSinceStart += float64(point.DayNum)
+		sumVisits += float64(point.Count)
+		sumDaysSinceStartSquared += math.Pow(float64(point.DayNum), 2)
+		sumVisitsSquared += math.Pow(float64(point.Count), 2)
 
-		sumXY += float64(point.DayNum * point.Count)
+		sumVisitsIntoDaysSinceStart += float64(point.DayNum * point.Count)
 	}
 
-	b := (float64(len(trendlinePoints))*sumXY - sumX*sumY) / (float64(len(trendlinePoints))*sumXSquared - math.Pow(sumX, 2))
+	b := (float64(len(trendlinePoints))*sumVisitsIntoDaysSinceStart - sumDaysSinceStart*sumVisits) / (float64(len(trendlinePoints))*sumDaysSinceStartSquared - math.Pow(sumDaysSinceStart, 2))
 
-	a := sumY/float64(len(trendlinePoints)) - sumX*b/float64(len(trendlinePoints))
+	a := sumVisits/float64(len(trendlinePoints)) - sumDaysSinceStart*b/float64(len(trendlinePoints))
 
 	trendlineCalculated := make([]Point, len(dataPoints))
 
