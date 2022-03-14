@@ -8,12 +8,12 @@ import (
 
 type ChartData struct {
 	DataPoints      []Point
-	Trendline       LinearTrendline
+	Trendline       *LinearTrendline
 	TrendlinePoints []Point
 }
 
 const (
-	dateLayout = "02 Jan 2006"
+	DateLayout = "02 Jan 2006"
 )
 
 type TrendlinePoint struct {
@@ -23,7 +23,7 @@ type TrendlinePoint struct {
 
 func (d *ChartData) CalculateTrendline(dataPoints []model.DataPoint) {
 
-	d.Trendline = LinearTrendline{
+	d.Trendline = &LinearTrendline{
 		Start: Point{},
 		End:   Point{},
 	}
@@ -66,14 +66,13 @@ func (d *ChartData) CalculateTrendline(dataPoints []model.DataPoint) {
 
 	for i, point := range trendlinePoints {
 		visitCountTrend := a + b*float64(point.DayNum)
-		trendlineCalculated[i] = Point{Day: dataPoints[i].Day.Format(dateLayout), VisitCount: visitCountTrend}
+		trendlineCalculated[i] = Point{Day: dataPoints[i].Day.Format(DateLayout), VisitCount: visitCountTrend}
 	}
 
 	d.Trendline.Start = trendlineCalculated[0]
 	d.Trendline.End = trendlineCalculated[len(trendlineCalculated)-1]
 
 	d.TrendlinePoints = trendlineCalculated
-
 }
 
 type LinearTrendline struct {
@@ -98,5 +97,5 @@ func NewChartDataResponse(dataPoints []model.DataPoint) ChartData {
 }
 
 func getDateString(roundedTime time.Time) string {
-	return roundedTime.Format(dateLayout)
+	return roundedTime.Format(DateLayout)
 }

@@ -2,10 +2,10 @@ package utils_test
 
 import (
 	"github.com/stretchr/testify/assert"
-	"net/http"
-	"net/http/httptest"
 	"graph-svc/pkg/http/internal/resperr"
 	"graph-svc/pkg/http/internal/utils"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 )
 
