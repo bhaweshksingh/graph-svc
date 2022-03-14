@@ -1,10 +1,8 @@
 package model
 
-import (
-	"time"
-)
+import "time"
 
 type DataPoint struct {
-	Day time.Time
+	Day        time.Time
 	VisitCount int
 }

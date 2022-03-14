@@ -27,7 +27,9 @@ func (gh *GraphHandler) GetChartData(resp http.ResponseWriter, req *http.Request
 
 	chartResponse, err := gh.svc.GetChartData(ctx)
 	if err != nil {
-		return fmt.Errorf("error occurred while fetching chart data: %v", err)
+		errorMessage := fmt.Sprintf("error occurred while fetching chart data: %v", err)
+		gh.lgr.Error(errorMessage)
+		return fmt.Errorf(errorMessage)
 	}
 	utils.WriteSuccessResponse(resp, http.StatusOK, chartResponse)
 	return nil
