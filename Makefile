@@ -20,7 +20,7 @@ http-serve: build
 
 app:
 	docker-compose -f build/docker-compose.app-event.yml -f build/docker-compose.network.yml up -d --build
-	docker logs graph-svc-go
+	docker logs -f graph-svc-go
 
 http-local-serve: build
 	$(APP_EXECUTABLE) -configFile=$(CONFIG_FILE) $(HTTP_SERVE_COMMAND)
